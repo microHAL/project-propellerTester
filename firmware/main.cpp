@@ -31,6 +31,9 @@
 #include "microhal_bsp.h"
 #include "diagnostic/diagnostic.h"
 
+#include "hx711/hx711.h"
+#include "lis2dh12/lis2dh12.h"
+
 using namespace microhal;
 using namespace microhal::diagnostic;
 using namespace std::literals::chrono_literals;
@@ -45,6 +48,9 @@ int main() {
     debugPort.write("\n\r------------------- Propeller tester -------------------------\n\r");
 
     appLog << lock << Debug  << "log " << unlock;
+
+    HX711 force(hx711_SPI);
+    LIS2DH12 accelerometer(sensorI2C, LIS2DH12::I2C_ADDRESS_0);
 
     while (1) {
 

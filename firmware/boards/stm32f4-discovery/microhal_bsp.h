@@ -29,6 +29,11 @@
 #ifndef STM32F4DISCOVERY_H_
 #define STM32F4DISCOVERY_H_
 
+#include "i2c.h"
+
 static microhal::SerialPort &debugPort = microhal::stm32f4xx::SerialPort::Serial3;
+static microhal::I2C &sensorI2C = microhal::stm32f4xx::I2C::i2c2;
+
+static microhal::SPI &hx711_SPI = microhal::stm32f4xx::SPI::spi1;
 
 #endif /* STM32F4DISCOVERY_H_ */

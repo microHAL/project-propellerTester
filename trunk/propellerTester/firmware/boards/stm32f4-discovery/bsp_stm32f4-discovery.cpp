@@ -29,6 +29,7 @@
 #include "microhal.h"
 #include "microhal_bsp.h"
 #include "SPIDevice/SPIDevice.h"
+#include "i2c.h"
 
 using namespace microhal;
 using namespace stm32f4xx;
@@ -40,11 +41,24 @@ void hardwareConfig(void) {
     IOManager::routeSerial<3, Txd, stm32f4xx::GPIO::PortD, 8>();
     IOManager::routeSerial<3, Rxd, stm32f4xx::GPIO::PortD, 9>();
 
+    IOManager::routeI2C<2, SDA, stm32f4xx::GPIO::PortB, 11>(stm32f4xx::GPIO::PullUp);
+    IOManager::routeI2C<2, SCL, stm32f4xx::GPIO::PortB, 10>(stm32f4xx::GPIO::PullUp);
+
+    IOManager::routeSPI<1, SCK, stm32f4xx::GPIO::PortA, 5>();
+    IOManager::routeSPI<1, MISO, stm32f4xx::GPIO::PortA, 6>();
+    IOManager::routeSPI<1, MOSI, stm32f4xx::GPIO::PortA, 7>();
+
     debugPort.setDataBits(stm32f4xx::SerialPort::Data8);
     debugPort.setStopBits(stm32f4xx::SerialPort::OneStop);
     debugPort.setParity(stm32f4xx::SerialPort::NoParity);
     debugPort.open(stm32f4xx::SerialPort::ReadWrite);
     debugPort.setBaudRate(stm32f4xx::SerialPort::Baud115200);
+
+    stm32f4xx::I2C::i2c2.init();
+    stm32f4xx::I2C::i2c2.enable();
+
+	stm32f4xx::SPI::spi1.init(stm32f4xx::SPI::Mode1, stm32f4xx::SPI::PRESCALER_256);
+	stm32f4xx::SPI::spi1.enable();
 
     SysTick_Config(168000000/1000);
 }

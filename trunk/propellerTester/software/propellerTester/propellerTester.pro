@@ -18,11 +18,14 @@ SOURCES += main.cpp\
         mainwindow.cpp \
         qcustomplot.cpp \
         measurement.cpp \
-        database.cpp
+        database.cpp \
+    about.cpp
 
 HEADERS  += mainwindow.h \
         qcustomplot.h \
         measurement.h \
-        database.h
+        database.h \
+    about.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    about.ui

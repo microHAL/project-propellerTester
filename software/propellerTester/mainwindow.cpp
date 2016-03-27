@@ -1,3 +1,5 @@
+#include <QFileDialog>
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "measurement.h"
@@ -12,7 +14,7 @@ void generateSamples();
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow), about(this)
 {
     ui->setupUi(this);
 
@@ -64,4 +66,14 @@ void MainWindow::initializePropellerGUI() {
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::on_export_button_clicked() {
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Export File"),
+                               "propellerTest.csv",
+                               tr("Comma-sepatated values (*.csv);;XML files(*.xml)"));
+}
+
+void MainWindow::on_actionAbout_triggered() {
+    about.show();
 }

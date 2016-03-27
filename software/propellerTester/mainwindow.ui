@@ -36,7 +36,7 @@
        </size>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="measurement">
        <attribute name="title">
@@ -86,13 +86,13 @@
              <enum>QFrame::Plain</enum>
             </property>
             <property name="currentIndex">
-             <number>1</number>
+             <number>0</number>
             </property>
             <widget class="QWidget" name="page_5">
              <property name="geometry">
               <rect>
-               <x>0</x>
-               <y>0</y>
+               <x>-4</x>
+               <y>-40</y>
                <width>369</width>
                <height>546</height>
               </rect>
@@ -388,7 +388,7 @@
              <property name="geometry">
               <rect>
                <x>0</x>
-               <y>0</y>
+               <y>-385</y>
                <width>350</width>
                <height>908</height>
               </rect>
@@ -945,7 +945,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="pushButton_3">
+                 <widget class="QPushButton" name="export_button">
                   <property name="text">
                    <string>Export</string>
                   </property>
@@ -965,6 +965,139 @@
        <attribute name="title">
         <string>Compare</string>
        </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_7">
+          <item>
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QCustomPlot" name="widget" native="true"/>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <item>
+           <widget class="QGroupBox" name="groupBox_4">
+            <property name="maximumSize">
+             <size>
+              <width>369</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="title">
+             <string>Plots</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_8">
+             <item>
+              <widget class="QScrollArea" name="scrollArea_2">
+               <property name="widgetResizable">
+                <bool>true</bool>
+               </property>
+               <widget class="QWidget" name="scrollAreaWidgetContents">
+                <property name="geometry">
+                 <rect>
+                  <x>0</x>
+                  <y>0</y>
+                  <width>347</width>
+                  <height>221</height>
+                 </rect>
+                </property>
+               </widget>
+              </widget>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_6">
+               <item>
+                <widget class="QPushButton" name="pushButton_7">
+                 <property name="text">
+                  <string>Add plot</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="pushButton_8">
+                 <property name="text">
+                  <string>Remove plot</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="groupBox_5">
+            <property name="maximumSize">
+             <size>
+              <width>369</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="title">
+             <string>Test sets</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_9">
+             <item>
+              <widget class="QScrollArea" name="scrollArea_3">
+               <property name="widgetResizable">
+                <bool>true</bool>
+               </property>
+               <widget class="QWidget" name="scrollAreaWidgetContents_3">
+                <property name="geometry">
+                 <rect>
+                  <x>0</x>
+                  <y>0</y>
+                  <width>347</width>
+                  <height>220</height>
+                 </rect>
+                </property>
+               </widget>
+              </widget>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_11">
+               <item>
+                <widget class="QPushButton" name="pushButton_9">
+                 <property name="text">
+                  <string>Add test set</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="pushButton_11">
+                 <property name="text">
+                  <string>Remove test set</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="pushButton_10">
+                 <property name="text">
+                  <string>Load database</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>

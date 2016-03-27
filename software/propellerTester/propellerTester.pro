@@ -19,13 +19,23 @@ SOURCES += main.cpp\
         qcustomplot.cpp \
         measurement.cpp \
         database.cpp \
-    about.cpp
+    about.cpp \
+    propeller.cpp \
+    engine.cpp \
+    esc.cpp \
+    battery.cpp \
+    measurementSetup.cpp
 
 HEADERS  += mainwindow.h \
         qcustomplot.h \
         measurement.h \
         database.h \
-    about.h
+    about.h \
+    propeller.h \
+    engine.h \
+    esc.h \
+    battery.h \
+    measurementSetup.h
 
 FORMS    += mainwindow.ui \
     about.ui

@@ -2,12 +2,12 @@
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "measurement.h"
+#include "measurementSetup.h"
 #include "database.h"
 
 Database database;
 
-Measurement measurement;
+MeasurementSetup measurementSetup;
 QVector<double> power;
 
 void generateSamples();
@@ -26,25 +26,25 @@ MainWindow::MainWindow(QWidget *parent) :
 
     generateSamples();
 
-    ui->plot->graph(0)->setData(power,  measurement.thrust);
+    ui->plot->graph(0)->setData(power,  measurementSetup.measurement.thrust);
     ui->plot->xAxis->setRange(power.first(),power.last());
-    ui->plot->yAxis->setRange(measurement.thrust.first(),measurement.thrust.last());
+    ui->plot->yAxis->setRange(measurementSetup.measurement.thrust.first(),measurementSetup.measurement.thrust.last());
     ui->plot->replot();
 
     initializePropellerGUI();
 }
 
 void generateSamples() {
-    measurement.engineType = "Engine name";
-    measurement.ECStype = "ECS 50A";
-    measurement.propeller.type = "Very nice propeller";
-    measurement.propeller.numberOfBlades = 2;
+    //measurementSetup.engine.type = "Engine name";
+    //measurementSetup.esc.type = "ECS 50A";
+    //measurementSetup.propeller.type = "Very nice propeller";
+    //measurementSetup.propeller.numberOfBlades = 2;
     for (uint32_t i=0; i<20000; i++){
-        measurement.current.push_back(i);
-        measurement.voltage.push_back(12000);
-        measurement.thrust.push_back(0.5 * i);
+        measurementSetup.measurement.current.push_back(i);
+        measurementSetup.measurement.voltage.push_back(12000);
+        measurementSetup.measurement.thrust.push_back(0.5 * i);
 
-        power.push_back(measurement.current[i] * measurement.voltage[i] / 1000);
+        power.push_back(measurementSetup.measurement.current[i] * measurementSetup.measurement.voltage[i] / 1000);
     }
 }
 

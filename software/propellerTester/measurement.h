@@ -5,21 +5,12 @@
 #include <vector>
 #include <QVector>
 
-class Propeller {
-public:
-    std::string type;
-    unsigned int numberOfBlades;
-};
-
 class Measurement
 {
 public:
     Measurement();
 
 //private:
-    std::string engineType;
-    std::string ECStype;
-    Propeller propeller;
     std::vector<int> time;
     std::vector<double> current;
     std::vector<double> voltage;

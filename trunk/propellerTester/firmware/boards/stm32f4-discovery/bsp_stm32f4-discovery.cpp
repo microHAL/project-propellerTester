@@ -54,6 +54,8 @@ void hardwareConfig(void) {
     debugPort.open(stm32f4xx::SerialPort::ReadWrite);
     debugPort.setBaudRate(stm32f4xx::SerialPort::Baud115200);
 
+    diagnostic::diagChannel.setOutputDevice(debugPort);
+
     stm32f4xx::I2C::i2c2.init();
     stm32f4xx::I2C::i2c2.enable();
 

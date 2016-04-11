@@ -28,9 +28,28 @@
  */
 
 #include "escDriver.h"
+#include "microhal.h"
+#include "ports/STMicroelectronics/STM32F4xx/hdr/hdr_rcc.h"
+#include "ports/STMicroelectronics/STM32F4xx/hdr/hdr_gpio.h"
 
 ESCDriver::ESCDriver() {
-
+    //    static void system_init(void) {
+    //        NVIC_SetPriorityGrouping(3);
+           // RCC->AHB1ENR |= /*RCC_AHB1ENR_GPIOAEN | RCC_AHB1ENR_GPIOBEN | RCC_AHB1ENR_GPIOCEN | RCC_AHB1ENR_GPIODEN | RCC_AHB1ENR_GPIOEEN | RCC_AHB1ENR_GPIOFEN
+             //       | RCC_AHB1ENR_GPIOGEN | RCC_AHB1ENR_GPIOHEN | RCC_AHB1ENR_GPIOIEN;*/
+            RCC_AHB1ENR_CRCEN_bb = 1;
+            RCC_APB1ENR_TIM4EN_bb = 1;
+    //        SysTick_Config(120000000 / 1000);
+            GPIOB->MODER |= GPIO_MODER_ALT_value << (2 * 7);
+            *((uint64_t*) GPIOB->AFR) |= GPIO_AFRx_AF2_value << (4 * 7);
+            TIM4->PSC = 84-1;
+            TIM4->ARR = 20000-1;
+            TIM4->CCR2 = 0;
+            TIM4->CCMR1 = TIM_CCMR1_OC2M_1 | TIM_CCMR1_OC2M_2;
+            TIM4->CCER = TIM_CCER_CC2E;
+            //TIM4->BDTR = TIM_BDTR_MOE;
+            TIM4->CR1 = TIM_CR1_CEN;
+    //    }
 }
 
 ESCDriver::~ESCDriver() {
@@ -38,5 +57,5 @@ ESCDriver::~ESCDriver() {
 }
 
 void ESCDriver::setOutput(Speed speed) {
-
+    TIM4->CCR2 = speed;
 }

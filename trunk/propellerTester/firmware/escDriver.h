@@ -30,9 +30,12 @@
 #ifndef _ESCDRIVER_H_
 #define _ESCDRIVER_H_
 
+#include <cstdint>
+
 class ESCDriver {
-    using Speed = float;
+
  public:
+	using Speed = uint32_t;
     ESCDriver();
     virtual ~ESCDriver();
 

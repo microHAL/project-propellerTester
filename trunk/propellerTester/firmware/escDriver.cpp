@@ -40,6 +40,7 @@ ESCDriver::ESCDriver() {
             RCC_AHB1ENR_CRCEN_bb = 1;
             RCC_APB1ENR_TIM4EN_bb = 1;
     //        SysTick_Config(120000000 / 1000);
+
             GPIOB->MODER |= GPIO_MODER_ALT_value << (2 * 7);
             *((uint64_t*) GPIOB->AFR) |= GPIO_AFRx_AF2_value << (4 * 7);
             TIM4->PSC = 84-1;
@@ -57,5 +58,13 @@ ESCDriver::~ESCDriver() {
 }
 
 void ESCDriver::setOutput(Speed speed) {
+	if(speed < 500)
+	{
+		speed = 500;
+	}else
+	if(speed > 2500)
+	{
+		speed = 2500;
+	}
     TIM4->CCR2 = speed;
 }

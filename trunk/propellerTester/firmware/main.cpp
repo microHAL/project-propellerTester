@@ -50,34 +50,32 @@ int main() {
 
     appLog << lock << Debug  << "log " << unlock;
 
-    HX711 force;
-    force.reset();
+    HX711 force(hx711_SPI, miso_pin);
+
     LIS2DH12 accelerometer(sensorI2C, LIS2DH12::I2C_ADDRESS_0);
+
     ESCDriver drv;
     ESCDriver::Speed x=0;
     char c;
+    force.setChannel(HX711::Channel::A_Gain_64);
     while (1) {
-    	if(debugPort.read(&c,1))
-    	{
-    		if(c== 'q')
-    		{
-    			x+=10;
-    		}else
-    		if(c == 'a')
-    		{
-    			x-=10;
-    			if(x>2500) x=0;
-    		}else if(c == 's') x=0;
-    		if(x>2150) x=2150;
-    		appLog<<Debug<<"Speed: "<<(uint32_t)x<<endl;
-    	}
-    	force.proc();
-    	drv.setOutput(x);
-    	if(force.dataready())
-    	{
-    		appLog<<Debug<<"Force:"<<force.getresult()<<endl;
-    	}
-    	//std::this_thread::sleep_for(1s);
+        if (debugPort.read(&c, 1)) {
+            if (c== 'q') {
+                x+=10;
+            } else if (c == 'a') {
+                x -= 10;
+                if (x > 2500) x=0;
+            } else if (c == 's') {
+                x = 0;
+            }
+            if (x > 2150) x = 2150;
+            appLog << Debug << "Speed: " << (uint32_t)x <<endl;
+        }
+
+        drv.setOutput(x);
+
+        appLog << lock << Debug << "Measured force: " << force.getData() << endl << unlock;
+        std::this_thread::sleep_for(1s);
     }
 
     return 0;

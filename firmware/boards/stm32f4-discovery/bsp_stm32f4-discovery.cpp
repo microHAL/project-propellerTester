@@ -59,8 +59,8 @@ void hardwareConfig(void) {
     stm32f4xx::I2C::i2c2.init();
     stm32f4xx::I2C::i2c2.enable();
 
-	stm32f4xx::SPI::spi1.init(stm32f4xx::SPI::Mode1, stm32f4xx::SPI::PRESCALER_256);
-	stm32f4xx::SPI::spi1.enable();
+    stm32f4xx::SPI::spi1.init(stm32f4xx::SPI::Mode1, stm32f4xx::SPI::PRESCALER_256);
+    stm32f4xx::SPI::spi1.enable();
 
     SysTick_Config(168000000/1000);
 }

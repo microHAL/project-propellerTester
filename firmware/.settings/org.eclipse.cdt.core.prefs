@@ -1,0 +1,12 @@
+eclipse.preferences.version=1
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.config.elf.debug.1460311201/MICROIDE_MINGW_HOME/delimiter=;
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.config.elf.debug.1460311201/MICROIDE_MINGW_HOME/operation=replace
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.config.elf.debug.1460311201/MICROIDE_MINGW_HOME/value=C\:\\microIDE\\toolchains\\mingw-w64\\5.3.0
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.config.elf.debug.1460311201/MICROIDE_MSYS_HOME/delimiter=;
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.config.elf.debug.1460311201/MICROIDE_MSYS_HOME/operation=replace
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.config.elf.debug.1460311201/MICROIDE_MSYS_HOME/value=C\:\\microIDE\\tools\\msys
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.config.elf.debug.1460311201/PATH/delimiter=;
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.config.elf.debug.1460311201/PATH/operation=replace
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.config.elf.debug.1460311201/PATH/value=C\:\\microIDE\\tools\\msys\\bin;C\:\\microIDE\\toolchains\\gcc-arm-none-eabi\\5.2.0\\bin;C\:/Program Files/Java/jre1.8.0_73/bin/server;C\:/Program Files/Java/jre1.8.0_73/bin;C\:/Program Files/Java/jre1.8.0_73/lib/amd64;C\:\\Windows\\system32;C\:\\Windows;C\:\\Windows\\System32\\Wbem;C\:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C\:\\Program Files (x86)\\NVIDIA Corporation\\PhysX\\Common;C\:\\Program Files\\TortoiseSVN\\bin;;C\:\\Users\\buleks\\Desktop
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.config.elf.debug.1460311201/append=true
+environment/project/ilg.gnuarmeclipse.managedbuild.cross.config.elf.debug.1460311201/appendContributed=true

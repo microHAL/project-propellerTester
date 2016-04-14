@@ -67,15 +67,15 @@ int main() {
                 if (x > 2500) x=0;
             } else if (c == 's') {
                 x = 0;
-            }
+            }else if(c=='t'){force.tare();}
             if (x > 2150) x = 2150;
             appLog << Debug << "Speed: " << (uint32_t)x <<endl;
         }
 
         drv.setOutput(x);
 
-        appLog << lock << Debug << "Measured force: " << force.getData() << endl << unlock;
-        std::this_thread::sleep_for(1s);
+        appLog << lock << Debug << "Measured force: " << force.getData()/64 << endl << unlock;
+        std::this_thread::sleep_for(100ms);
     }
 
     return 0;

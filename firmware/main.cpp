@@ -58,7 +58,9 @@ int main() {
     ESCDriver::Speed x=0;
     char c;
     force.setChannel(HX711::Channel::A_Gain_64);
+    int counter;
     while (1) {
+    	counter++;
         if (debugPort.read(&c, 1)) {
             if (c== 'q') {
                 x+=10;
@@ -70,14 +72,18 @@ int main() {
             }else if(c=='t'){force.tare();}
             else if(c=='z') {force.scale(111);}
             else if(c== 'r'){force.reset();}
+            else if(c== ' '){x=0;}
             if (x > 2150) x = 2150;
             appLog << Debug << "Speed: " << (uint32_t)x <<endl;
         }
 
         drv.setOutput(x);
-
-        appLog << lock << Debug << "Measured force: " << force.getscaledData() << endl << unlock;
-        std::this_thread::sleep_for(100ms);
+        if(counter>100000)
+        {
+        	counter = 0;
+        appLog << lock << Debug << "Measured force: " << force.getscaledData()<<"Raw/64" << endl << unlock;
+        }
+        //std::this_thread::sleep_for(100ms);
     }
 
     return 0;

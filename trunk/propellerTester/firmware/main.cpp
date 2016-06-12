@@ -34,6 +34,8 @@
 #include "hx711/hx711.h"
 #include "lis2dh12/lis2dh12.h"
 #include "escDriver.h"
+#include "rpm.h"
+#include "interface.h"
 
 using namespace microhal;
 using namespace microhal::diagnostic;
@@ -43,6 +45,19 @@ using namespace std::literals::chrono_literals;
 // lets create application diagnostic Channel
 Diagnostic<LogLevel::Debug> appLog("APP: ", debugPort, EnableTimestamp | EnableFileName | EnableLevelName);
 
+//currently used pins
+//PB7-PPM out
+//PA0- HX data
+//PA1-HX CLK
+//PE5- 56khz
+//PA5-SPI
+//PA6-SPI
+//PA7-SPI
+//PB10-SCL
+//PB11-SDA
+//PD8-TX
+//PD9-RX
+//PB14 - input capture TIM12 - propeller speed
 int main() {
     debugPort.open(IODevice::ReadWrite);
 
@@ -51,39 +66,28 @@ int main() {
     appLog << lock << Debug  << "log " << unlock;
 
     HX711 force(hx711_SPI, miso_pin);
-
-    LIS2DH12 accelerometer(sensorI2C, LIS2DH12::I2C_ADDRESS_0);
-
-    ESCDriver drv;
-    ESCDriver::Speed x=0;
-    char c;
     force.setChannel(HX711::Channel::A_Gain_64);
-    int counter;
-    while (1) {
-    	counter++;
-        if (debugPort.read(&c, 1)) {
-            if (c== 'q') {
-                x+=10;
-            } else if (c == 'a') {
-                x -= 10;
-                if (x > 2500) x=0;
-            } else if (c == 's') {
-                x = 0;
-            }else if(c=='t'){force.tare();}
-            else if(c=='z') {force.scale(111);}
-            else if(c== 'r'){force.reset();}
-            else if(c== ' '){x=0;}
-            if (x > 2150) x = 2150;
-            appLog << Debug << "Speed: " << (uint32_t)x <<endl;
-        }
 
-        drv.setOutput(x);
-        if(counter>100000)
-        {
-        	counter = 0;
-        appLog << lock << Debug << "Measured force: " << force.getscaledData()<<"Raw/64" << endl << unlock;
-        }
-        //std::this_thread::sleep_for(100ms);
+  //  LIS2DH12 accelerometer(sensorI2C, LIS2DH12::I2C_ADDRESS_0);
+
+    ESCDriver esc_controller;
+    //RPM propeller_speed;
+    Interface interface;
+
+//    propeller_speed.Init();
+
+    uint64_t hx_last = SysTickGetTime();
+    uint64_t start;
+    while (1)
+    {
+    	start = SysTickGetTime();
+    	interface.process(esc_controller,force);
+    	if(start-hx_last > 200)
+    	{
+    		appLog << lock << Debug << force.getrawData ()<<endl;
+    	}
+
+
     }
 
     return 0;

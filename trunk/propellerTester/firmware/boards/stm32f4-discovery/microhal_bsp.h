@@ -41,4 +41,6 @@ static microhal::SPI &hx711_SPI = microhal::stm32f4xx::SPI::spi1;
 constexpr microhal::GPIO::IOPin hx711_data_pin(microhal::stm32f4xx::GPIO::Port::PortA, 0);
 constexpr microhal::GPIO::IOPin hx711_clk_pin(microhal::stm32f4xx::GPIO::Port::PortA, 1);
 
+uint64_t SysTickGetTime(void);
+
 #endif /* STM32F4DISCOVERY_H_ */

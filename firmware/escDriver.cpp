@@ -50,6 +50,7 @@ ESCDriver::ESCDriver() {
             TIM4->CCER = TIM_CCER_CC2E;
             //TIM4->BDTR = TIM_BDTR_MOE;
             TIM4->CR1 = TIM_CR1_CEN;
+
     //    }
 }
 

@@ -58,6 +58,11 @@ Diagnostic<LogLevel::Debug> appLog("APP: ", debugPort, EnableTimestamp | EnableF
 //PD8-TX
 //PD9-RX
 //PB14 - input capture TIM12 - propeller speed
+
+HX711 force(hx711_SPI, miso_pin);
+ESCDriver esc_controller;
+RPM propeller_speed;
+
 int main() {
     debugPort.open(IODevice::ReadWrite);
 
@@ -65,30 +70,21 @@ int main() {
 
     appLog << lock << Debug  << "log " << unlock;
 
-    HX711 force(hx711_SPI, miso_pin);
+
     force.setChannel(HX711::Channel::A_Gain_64);
 
   //  LIS2DH12 accelerometer(sensorI2C, LIS2DH12::I2C_ADDRESS_0);
 
-    ESCDriver esc_controller;
-    //RPM propeller_speed;
+
     Interface interface;
 
-//    propeller_speed.Init();
+    propeller_speed.Init();
 
-    uint64_t hx_last = SysTickGetTime();
-    uint64_t start;
+
     while (1)
     {
-    	start = SysTickGetTime();
-    	interface.process(esc_controller,force);
-    	if(start-hx_last > 200)
-    	{
-    		hx_last = SysTickGetTime();
-    		appLog << lock << Debug << force.getrawData ()<<"\n";
-    	}
-
-
+    	interface.process();
+    	interface.show_log(200);
     }
 
     return 0;

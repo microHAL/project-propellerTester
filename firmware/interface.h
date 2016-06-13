@@ -37,22 +37,17 @@ public:
 		esc_speed = 0;
 		cli_char = 0;
 		speed_step = 10;
+		last_time = SysTickGetTime();
+		current_time = SysTickGetTime();
 	}
 
-	void process(ESCDriver &esc, HX711 &hx);
-	void show_data()
-	{
-//	  if (counter > 100000)
-//	      {
-//		counter = 0;
-//		appLog << lock << Debug << "Measured force: " << force.getscaledData ()
-//		    << "Raw/64" << endl << unlock;
-//	      }
-//	    //std::this_thread::sleep_for(100ms);
-//
-//		appLog << Debug << "Speed: " << (uint32_t) x << endl;
-//				esc.setOutput (esc_speed);
-	}
+	void process();
+
+private:
+	uint64_t current_time;
+	uint64_t last_time;
+public:
+	void show_log(uint64_t waitMS);
 };
 
 #endif /* INTERFACE_H_ */

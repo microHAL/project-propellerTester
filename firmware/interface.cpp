@@ -22,8 +22,12 @@ void Interface::show_log(uint64_t waitMS)
 	   	if (current_time - last_time > waitMS)
 		{
 	   		last_time = SysTickGetTime();
-		//	appLog << lock << Debug << force.getrawData() ;
-			appLog << Debug << " Speed: " << (uint32_t) esc_speed << "\n";
+	   		appLog << lock;
+			appLog << lock << Debug << force.getscaledData() ;
+			appLog << Debug << " Speed: " << (uint32_t) esc_speed ;
+			appLog << Debug << " RPM: "<<propeller_speed.getlast()<< "\n";
+	   	//	appLog << Debug <<propeller_speed.getlast()<< "\n";
+			appLog<< unlock;
 
 		}
 //	  if (counter > 100000)
@@ -68,7 +72,7 @@ void Interface::process()
 		{
 			esc_speed = 0;
 		}
-		esc_controller.setOutput (esc_speed);
+		esc_speed = esc_controller.setOutput (esc_speed);
 	}
 
 }

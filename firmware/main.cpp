@@ -61,7 +61,7 @@ Diagnostic<LogLevel::Debug> appLog("APP: ", debugPort, EnableTimestamp | EnableF
 
 HX711 force(hx711_SPI, miso_pin);
 ESCDriver esc_controller;
-RPM propeller_speed;
+RPM propeller_speed(RPM::BladesCount::THREE);
 
 int main() {
     debugPort.open(IODevice::ReadWrite);
@@ -74,10 +74,10 @@ int main() {
     force.setChannel(HX711::Channel::A_Gain_64);
 
   //  LIS2DH12 accelerometer(sensorI2C, LIS2DH12::I2C_ADDRESS_0);
-
+    volatile uint32_t clk  = Core::getAPB1_CLK();
 
     Interface interface;
-
+    esc_controller.Init();
     propeller_speed.Init();
 
 

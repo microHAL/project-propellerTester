@@ -31,8 +31,9 @@
 #include "microhal.h"
 #include "ports/STMicroelectronics/STM32F4xx/hdr/hdr_rcc.h"
 #include "ports/STMicroelectronics/STM32F4xx/hdr/hdr_gpio.h"
-
 ESCDriver::ESCDriver() {
+}
+void ESCDriver::Init() {
     //    static void system_init(void) {
     //        NVIC_SetPriorityGrouping(3);
            // RCC->AHB1ENR |= /*RCC_AHB1ENR_GPIOAEN | RCC_AHB1ENR_GPIOBEN | RCC_AHB1ENR_GPIOCEN | RCC_AHB1ENR_GPIODEN | RCC_AHB1ENR_GPIOEEN | RCC_AHB1ENR_GPIOFEN
@@ -58,14 +59,15 @@ ESCDriver::~ESCDriver() {
 
 }
 
-void ESCDriver::setOutput(Speed speed) {
+ESCDriver::Speed ESCDriver::setOutput(Speed speed) {
 	if(speed < 500)
 	{
 		speed = 500;
 	}else
-	if(speed > 2500)
+	if(speed > maxspeed)
 	{
-		speed = 2500;
+		speed = maxspeed;
 	}
     TIM4->CCR2 = speed;
+    return speed;
 }

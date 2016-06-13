@@ -22,8 +22,6 @@ private:
 	inline void increase_motor_speed()
 	{
 		esc_speed += 10;
-		if (esc_speed > 2150)
-			esc_speed = 2150;
 	}
 	inline void decrease_motor_speed()
 	{

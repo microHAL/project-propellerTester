@@ -36,10 +36,12 @@ class ESCDriver {
 
  public:
 	using Speed = uint32_t;
+	const Speed maxspeed = 2500; //esc not recognize widest impulse than this
     ESCDriver();
     virtual ~ESCDriver();
+    void Init();
 
-    void setOutput(Speed speed);
+    Speed setOutput(Speed speed);
 };
 
 #endif  // _ESCDRIVER_H_

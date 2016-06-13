@@ -15,10 +15,17 @@
 
 class RPM
 {
+public:
+	enum BladesCount {
+		TWO =2,
+		THREE
+	};
 private:
 	static const int buffer_size = 10;
 	float buffer[buffer_size];
 	int32_t buffer_index;
+	BladesCount bladescount;
+	const uint32_t tim12_freq = 42000000;
 
 
 	inline void Init56khzoutput()
@@ -50,37 +57,40 @@ private:
 		  TIM12->CCMR1 = ((TIM9->CCMR1 & (~TIM_CCMR1_IC1F))&(~TIM_CCMR1_IC1PSC))| 0x01 ;
 
 		  TIM12->CCER = TIM_CCER_CC1P&(0<<1);//rising edge
-		  TIM12->CCER = TIM_CCER_CC1P&(1<<1);//falling edge
+//		  TIM12->CCER = TIM_CCER_CC1P&(1<<1);//falling edge
 		  TIM12->CCER |= TIM_CCER_CC1E;
-		  //TIM12->DIER |= TIM_DIER_CC1IE;
+		  TIM12->DIER |= TIM_DIER_CC1IE;
 		  TIM12->DIER |= TIM_DIER_UIE;
 		  //select polarity for TI1FP1(CC1P/CC1NP)
 
-		  //result in
-		  //;
-
-
-		 // TIM_SR_CC1OF; // jesli capture wystapi w przerwaniu, kasowane tlyko poprzez zapis 0
-		  NVIC_ClearPendingIRQ(TIM8_BRK_TIM12_IRQn);
 		  NVIC_SetPriority(TIM8_BRK_TIM12_IRQn, 0x00);
+		  NVIC_ClearPendingIRQ(TIM8_BRK_TIM12_IRQn);
 		  NVIC_EnableIRQ(TIM8_BRK_TIM12_IRQn);
 
 		  TIM12->CR1 = TIM_CR1_CEN;
 
 	}
-	void add_result()
-	{
 
-	}
 public:
-	RPM() {buffer_index = 0; }
+
+	RPM() = delete;
+	RPM(BladesCount c) {buffer_index = 0;bladescount = c ;}
 	inline void Init()
 	{
 		Init56khzoutput();
 		InitInputCapture();
+
 	}
-	float getlast();
+	float getlast()
+	{
+		return tim12_freq*60/(static_cast<uint32_t>(bladescount)*buffer[0]);
+	}
 	float getaverage();
+
+	void add_result(uint32_t result)
+	{
+		buffer[0] = result;
+	}
 
 };
 

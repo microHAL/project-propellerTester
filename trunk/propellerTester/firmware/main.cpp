@@ -47,8 +47,8 @@ Diagnostic<LogLevel::Debug> appLog("APP: ", debugPort, EnableTimestamp | EnableF
 
 //currently used pins
 //PB7-PPM out
-//PA0- HX data
-//PA1-HX CLK
+//PA6- HX data
+//PA7-HX CLK
 //PE5- 56khz
 //PA5-SPI
 //PA6-SPI
@@ -84,7 +84,8 @@ int main() {
     	interface.process(esc_controller,force);
     	if(start-hx_last > 200)
     	{
-    		appLog << lock << Debug << force.getrawData ()<<endl;
+    		hx_last = SysTickGetTime();
+    		appLog << lock << Debug << force.getrawData ()<<"\n";
     	}
 
 

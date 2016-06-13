@@ -52,15 +52,20 @@ private:
 		  TIM12->CCER = TIM_CCER_CC1P&(0<<1);//rising edge
 		  TIM12->CCER = TIM_CCER_CC1P&(1<<1);//falling edge
 		  TIM12->CCER |= TIM_CCER_CC1E;
-		  TIM12->DIER |= TIM_DIER_CC1IE;
+		  //TIM12->DIER |= TIM_DIER_CC1IE;
+		  TIM12->DIER |= TIM_DIER_UIE;
 		  //select polarity for TI1FP1(CC1P/CC1NP)
 
 		  //result in
-		  TIM12->CCR1;
-		  //capture could generate interrupt
-		  TIM12->SR&TIM_SR_CC1IF; //flaga ustawiana po przerwaniu, kasowana przez odczyt CCR1
+		  //;
 
-		  TIM_SR_CC1OF; // jesli capture wystapi w przerwaniu, kasowane tlyko poprzez zapis 0
+
+		 // TIM_SR_CC1OF; // jesli capture wystapi w przerwaniu, kasowane tlyko poprzez zapis 0
+		  NVIC_ClearPendingIRQ(TIM8_BRK_TIM12_IRQn);
+		  NVIC_SetPriority(TIM8_BRK_TIM12_IRQn, 0x00);
+		  NVIC_EnableIRQ(TIM8_BRK_TIM12_IRQn);
+
+		  TIM12->CR1 = TIM_CR1_CEN;
 
 	}
 	void add_result()

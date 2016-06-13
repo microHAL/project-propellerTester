@@ -4,9 +4,38 @@
  *  Created on: 8 cze 2016
  *      Author: buleks
  */
+#include "escDriver.h"
+#include "hx711/hx711.h"
 #include "interface.h"
+#include "rpm.h"
 
-void Interface::process(ESCDriver &esc, HX711 &hx)
+using namespace microhal::diagnostic;
+
+extern Diagnostic<LogLevel::Debug> appLog;
+extern HX711 force;
+extern ESCDriver esc_controller;
+extern RPM propeller_speed;
+
+void Interface::show_log(uint64_t waitMS)
+{
+		current_time = SysTickGetTime();
+	   	if (current_time - last_time > waitMS)
+		{
+	   		last_time = SysTickGetTime();
+		//	appLog << lock << Debug << force.getrawData() ;
+			appLog << Debug << " Speed: " << (uint32_t) esc_speed << "\n";
+
+		}
+//	  if (counter > 100000)
+//	      {
+//		counter = 0;
+//		appLog << lock << Debug << "Measured force: " << force.getscaledData ()
+//		    << "Raw/64" << endl << unlock;
+//	      }
+
+}
+
+void Interface::process()
 {
 	if (debugPort.read(&cli_char, 1))
 	{
@@ -25,21 +54,21 @@ void Interface::process(ESCDriver &esc, HX711 &hx)
 		}
 		else if (cli_char == 't')
 		{
-			hx.tare();
+			force.tare();
 		}
 		else if (cli_char == 'z')
 		{
-			hx.scale(111);
+			force.scale(111);
 		}
 		else if (cli_char == 'r')
 		{
-			hx.reset();
+			force.reset();
 		}
 		else if (cli_char == ' ')
 		{
 			esc_speed = 0;
 		}
-
+		esc_controller.setOutput (esc_speed);
 	}
 
 }

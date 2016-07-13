@@ -24,11 +24,4 @@
 		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>microHAL</name>
-			<type>2</type>
-			<locationURI>microHAL_DIR</locationURI>
-		</link>
-	</linkedResources>
 </projectDescription>

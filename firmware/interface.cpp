@@ -22,10 +22,17 @@ void Interface::show_log(uint64_t waitMS)
 	   	if (current_time - last_time > waitMS)
 		{
 	   		last_time = SysTickGetTime();
+//	   		appLog << lock;
+//			appLog << lock << Debug << force.getscaledData() ;
+//			appLog << Debug << " Speed: " << (uint32_t) esc_speed ;
+//			appLog << Debug << " RPM: "<<propeller_speed.getlast()<< "\n";
+//	   	//	appLog << Debug <<propeller_speed.getlast()<< "\n";
+//			appLog<< unlock;
+
 	   		appLog << lock;
 			appLog << lock << Debug << force.getscaledData() ;
-			appLog << Debug << " Speed: " << (uint32_t) esc_speed ;
-			appLog << Debug << " RPM: "<<propeller_speed.getlast()<< "\n";
+			appLog << Debug << ";" << (uint32_t) esc_speed ;
+			appLog << Debug << ";"<<propeller_speed.getlast()<< "\n";
 	   	//	appLog << Debug <<propeller_speed.getlast()<< "\n";
 			appLog<< unlock;
 

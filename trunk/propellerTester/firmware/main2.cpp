@@ -2,13 +2,13 @@
  * @license    BSD 3-Clause
  * @copyright  microHAL
  * @version    $Id$
- * @brief      propeller tester main file
+ * @brief
  *
- * @authors    Pawel Okas
- * created on: 30-01-2016
- * last modification: <DD-MM-YYYY>
+ * @authors    buleks
+ * created on: 19-07-2016
+ * last modification: 19-07-2016
  *
- * @copyright Copyright (c) 2014, microHAL
+ * @copyright Copyright (c) 2016, microHAL
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,64 +36,14 @@
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "diagnostic/diagnostic.h"
+/* **************************************************************************************************************************************************
+ * INCLUDES
+ */
 #include "microhal.h"
 #include "microhal_bsp.h"
 
-#include "escDriver.h"
-#include "hx711/hx711.h"
-#include "interface.h"
-#include "lis2dh12/lis2dh12.h"
-#include "rpm.h"
-
-using namespace microhal;
-using namespace microhal::diagnostic;
-using namespace std::literals::chrono_literals;
-
-// lets create application diagnostic Channel
-Diagnostic<LogLevel::Debug> appLog("APP: ", debugPort, EnableTimestamp |
-                                                           EnableFileName |
-                                                           EnableLevelName);
-
-// currently used pins
-// PB7-PPM out
-// PA6- HX data
-// PA7-HX CLK
-// PE5- 56khz
-// PA5-SPI
-// PA6-SPI
-// PA7-SPI
-// PB10-SCL
-// PB11-SDA
-// PD8-TX
-// PD9-RX
-// PB14 - input capture TIM12 - propeller speed
-
-HX711 force(hx711_SPI, miso_pin);
-ESCDriver esc_controller;
-RPM propeller_speed(RPM::BladesCount::THREE);
-
 int main() {
-  debugPort.open(IODevice::ReadWrite);
-
-  debugPort.write(
-      "\n\r------------------- Propeller tester -------------------------\n\r");
-
-  appLog << lock << Debug << "log " << unlock;
-
-  force.setChannel(HX711::Channel::A_Gain_64);
-
-  //  LIS2DH12 accelerometer(sensorI2C, LIS2DH12::I2C_ADDRESS_0);
-  volatile uint32_t clk = Core::getAPB1_CLK();
-
-  Interface interface;
-  esc_controller.Init();
-  propeller_speed.Init();
-
   while (1) {
-    interface.process();
-    interface.show_log(200);
   }
-
   return 0;
 }

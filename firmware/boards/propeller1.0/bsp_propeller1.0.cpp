@@ -42,6 +42,13 @@
 using namespace microhal;
 // using namespace stm32f3xx;
 
+static const uint32_t hse_value = 16000000;
+
+static void inline clockConfig(void)
+{
+
+}
+
 void hardwareConfig(void) {
   // Core::pll_start(8000000, 168000000);
   // Core::fpu_enable();

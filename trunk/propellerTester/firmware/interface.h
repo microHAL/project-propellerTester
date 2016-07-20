@@ -8,8 +8,8 @@
 #ifndef INTERFACE_H_
 #define INTERFACE_H_
 
+#include <bsp_propeller1.0.h>
 #include "microhal.h"
-#include "microhal_bsp.h"
 #include "diagnostic/diagnostic.h"
 
 class Interface

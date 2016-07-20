@@ -39,7 +39,11 @@
 #ifndef _BOARDS_PROPELLER1_0_MICROHAL_BSP_H_
 #define _BOARDS_PROPELLER1_0_MICROHAL_BSP_H_
 
-#include "stm32f373xc.h"
+#include "microhal.h"
+#include "stm32f3xx.h"
+
+constexpr microhal::GPIO::IOPin led_pin(microhal::stm32f3xx::GPIO::Port::PortF, 7);
+extern microhal::GPIO led;
 
 uint64_t SysTickGetTime(void);
 

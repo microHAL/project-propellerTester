@@ -39,23 +39,18 @@
 /* **************************************************************************************************************************************************
  * INCLUDES
  */
+#include <bsp_propeller1.0.h>
 #include "microhal.h"
-#include "microhal_bsp.h"
 
 using namespace microhal;
 using namespace std::literals::chrono_literals;
 
-constexpr microhal::GPIO::IOPin led_pin(microhal::stm32f3xx::GPIO::Port::PortF, 7);
-
-
 int main() {
-
-	GPIO led(led_pin, GPIO::Direction::Output);
-	led.set();
-	led.reset();
-  while (1) {
-      std::this_thread::sleep_for(10ms);
-      led.toggle();
-  }
-  return 0;
+    led.set();
+    led.reset();
+    while (1) {
+        std::this_thread::sleep_for(10ms);
+        led.toggle();
+    }
+    return 0;
 }

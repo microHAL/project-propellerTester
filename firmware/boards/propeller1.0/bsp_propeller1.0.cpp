@@ -84,7 +84,7 @@ static void inline clockConfig(void) {
     do {
         HSEStatus = RCC->CR & RCC_CR_HSERDY;
         StartUpCounter++;
-    } while ((HSEStatus == 0) && (StartUpCounter != 100));
+    } while ((HSEStatus == 0) && (StartUpCounter != 10));
 
     // hse can not start
     if (RCC->CR & RCC_CR_HSERDY == 0) {
@@ -108,8 +108,10 @@ static void inline clockConfig(void) {
 
         /* PLL configuration */
         RCC->CFGR &= (uint32_t)((uint32_t) ~(RCC_CFGR_PLLSRC | RCC_CFGR_PLLXTPRE | RCC_CFGR_PLLMUL));
-        RCC->CFGR |= (uint32_t)(RCC_CFGR_PLLSRC_HSE_PREDIV | RCC_CFGR_PLLXTPRE_HSE_PREDIV_DIV1 | RCC_CFGR_PLLMUL9);
-        RCC->CFGR2 |= RCC_CFGR2_PREDIV_DIV4;
+        // RCC->CFGR |= (uint32_t)(RCC_CFGR_PLLSRC_HSI_DIV2 | RCC_CFGR_PLLMUL16);
+        // RCC->CFGR |= (uint32_t)(RCC_CFGR_PLLSRC_HSE_PREDIV | RCC_CFGR_PLLXTPRE_HSE_PREDIV_DIV1 | RCC_CFGR_PLLMUL9);
+        RCC->CFGR |= (uint32_t)(RCC_CFGR_PLLSRC_HSE_PREDIV | RCC_CFGR_PLLXTPRE_HSE_PREDIV_DIV1 | RCC_CFGR_PLLMUL3);
+        // RCC->CFGR2 |= RCC_CFGR2_PREDIV_DIV4;
         /* Enable PLL */
         RCC->CR |= RCC_CR_PLLON;
 
@@ -130,9 +132,12 @@ void hardwareConfig(void) {
     // Core::pll_start(8000000, 168000000);
     Core::fpu_enable();
     clockDefault();
-    //  clockConfig();
+    clockConfig();
 
     SCB->VTOR = 0x00000000;  // offset for vector table
+
+    stm32f3xx::IOManager::routeSerial<1, Txd, stm32f3xx::GPIO::PortA, 9>();
+    stm32f3xx::IOManager::routeSerial<1, Rxd, stm32f3xx::GPIO::PortA, 10>();
 
     SysTick_Config(168000000 / 1000);
 }

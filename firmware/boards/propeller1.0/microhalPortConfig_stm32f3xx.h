@@ -36,11 +36,15 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#ifndef _BOARDS_PROPELLER1_0_MICROHALPORTCONFIG_STM32F3XX_H_
-#define _BOARDS_PROPELLER1_0_MICROHALPORTCONFIG_STM32F3XX_H_
+#ifndef _MICROHAL_MICROHALPORTCONFIG_STM32F3XX_H_
+#define _MICROHAL_MICROHALPORTCONFIG_STM32F3XX_H_
+
+constexpr static const uint32_t hse_value = 16000000;
 
 //***********************************************************************************************//
 //                                       configure interfaces //
 //***********************************************************************************************//
 
-#endif  // _BOARDS_PROPELLER1_0_MICROHALPORTCONFIG_STM32F3XX_H_
+#define MICROHAL_USE_SERIAL_PORT1_POLLING
+
+#endif  // _MICROHAL_MICROHALPORTCONFIG_STM32F3XX_H_

@@ -41,8 +41,6 @@
 using namespace microhal;
 // using namespace stm32f3xx;
 
-static const uint32_t hse_value = 16000000;
-
 GPIO led(led_pin, GPIO::Direction::Output);
 
 static void inline clockDefault(void) {

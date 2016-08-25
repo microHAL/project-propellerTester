@@ -48,9 +48,33 @@ using namespace std::literals::chrono_literals;
 int main() {
     led.set();
     led.reset();
+
+    Core::SetUSART1ClockSource(Core::UsartClockSource::PCLK);
+    debugPort.open(SerialPort::ReadWrite);
+    debugPort.setBaudRate(SerialPort::Baud115200);
+    debugPort.setDataBits(SerialPort::Data8);
+    debugPort.setStopBits(SerialPort::OneStop);
+    debugPort.setParity(SerialPort::NoParity);
+
+    debugPort.write("\n\rhello\n\r");
+
+    size_t availableBytes;
+    char buffer[100];
+
     while (1) {
-        std::this_thread::sleep_for(10ms);
-        led.toggle();
+        //        std::this_thread::sleep_for(10ms);
+        //        led.toggle();
+        availableBytes = debugPort.getAvailableBytes();
+        // if some data available
+        if (availableBytes != 0) {
+            // prevent buffer overflow
+            if (availableBytes > sizeof(buffer)) {
+                availableBytes = sizeof(buffer);
+            }
+            // make echo
+            debugPort.read(buffer, availableBytes);
+            debugPort.write(buffer, availableBytes);
+        }
     }
     return 0;
 }

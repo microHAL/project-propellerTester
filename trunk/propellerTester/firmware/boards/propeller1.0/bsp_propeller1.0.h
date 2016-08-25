@@ -36,15 +36,16 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#ifndef _BOARDS_PROPELLER1_0_MICROHAL_BSP_H_
-#define _BOARDS_PROPELLER1_0_MICROHAL_BSP_H_
+#ifndef _MICROHAL_BSP_PROPELLER1_0_H_
+#define _MICROHAL_BSP_PROPELLER1_0_H_
 
 #include "microhal.h"
 #include "stm32f3xx.h"
 
 constexpr microhal::GPIO::IOPin led_pin(microhal::stm32f3xx::GPIO::Port::PortF, 7);
 extern microhal::GPIO led;
+static microhal::SerialPort &debugPort = microhal::stm32f3xx::SerialPort::Serial1;
 
 uint64_t SysTickGetTime(void);
 
-#endif  // _BOARDS_PROPELLER1_0_MICROHAL_BSP_H_
+#endif  // _MICROHAL_BSP_PROPELLER1_0_H_

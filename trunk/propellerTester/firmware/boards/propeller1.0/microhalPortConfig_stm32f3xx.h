@@ -45,6 +45,9 @@ constexpr static const uint32_t hse_value = 16000000;
 //                                       configure interfaces //
 //***********************************************************************************************//
 
-#define MICROHAL_USE_SERIAL_PORT1_POLLING
+//#define MICROHAL_USE_SERIAL_PORT1_POLLING
+#define MICROHAL_USE_SERIAL_PORT1_INTERRUPT
+#define MICROHAL_SERIAL_PORT1_TX_BUFFER_SIZE 1024
+#define MICROHAL_SERIAL_PORT1_RX_BUFFER_SIZE 128
 
 #endif  // _MICROHAL_MICROHALPORTCONFIG_STM32F3XX_H_

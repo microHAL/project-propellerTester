@@ -61,6 +61,8 @@ int main() {
     size_t availableBytes;
     char buffer[100];
 
+    std::this_thread::sleep_for(10s);
+
     while (1) {
         //        std::this_thread::sleep_for(10ms);
         //        led.toggle();

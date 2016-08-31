@@ -45,6 +45,8 @@
 constexpr microhal::GPIO::IOPin led_pin(microhal::stm32f3xx::GPIO::Port::PortF, 7);
 extern microhal::GPIO led;
 static microhal::SerialPort &debugPort = microhal::stm32f3xx::SerialPort::Serial1;
+static microhal::SPI &hx711_SPI = microhal::stm32f3xx::SPI::spi3;
+static microhal::SPI &accelerometer_SPI = microhal::stm32f3xx::SPI::spi2;
 
 uint64_t SysTickGetTime(void);
 

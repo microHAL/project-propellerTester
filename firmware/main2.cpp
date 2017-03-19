@@ -39,24 +39,24 @@
 /* **************************************************************************************************************************************************
  * INCLUDES
  */
-#include <bsp_propeller1.0.h>
+#include "bsp.h"
 #include "microhal.h"
 
 using namespace microhal;
 using namespace std::literals::chrono_literals;
 
 int main() {
-    led.set();
-    led.reset();
+   // led.set();
+   // led.reset();
 
-    Core::SetUSART1ClockSource(Core::UsartClockSource::PCLK);
-    debugPort.open(SerialPort::ReadWrite);
-    debugPort.setBaudRate(SerialPort::Baud115200);
-    debugPort.setDataBits(SerialPort::Data8);
-    debugPort.setStopBits(SerialPort::OneStop);
-    debugPort.setParity(SerialPort::NoParity);
+   // Core::SetUSART1ClockSource(Core::UsartClockSource::PCLK);
+    bsp::debugPort.open(SerialPort::ReadWrite);
+    bsp::debugPort.setBaudRate(SerialPort::Baud115200);
+    bsp::debugPort.setDataBits(SerialPort::Data8);
+    bsp::debugPort.setStopBits(SerialPort::OneStop);
+    bsp::debugPort.setParity(SerialPort::NoParity);
 
-    debugPort.write("\n\rhello\n\r");
+    bsp::debugPort.write("\n\rhello\n\r");
 
     size_t availableBytes;
     char buffer[100];
@@ -66,7 +66,7 @@ int main() {
     while (1) {
         //        std::this_thread::sleep_for(10ms);
         //        led.toggle();
-        availableBytes = debugPort.getAvailableBytes();
+        availableBytes = bsp::debugPort.availableBytes();
         // if some data available
         if (availableBytes != 0) {
             // prevent buffer overflow
@@ -74,8 +74,8 @@ int main() {
                 availableBytes = sizeof(buffer);
             }
             // make echo
-            debugPort.read(buffer, availableBytes);
-            debugPort.write(buffer, availableBytes);
+            bsp::debugPort.read(buffer, availableBytes);
+            bsp::debugPort.write(buffer, availableBytes);
         }
     }
     return 0;

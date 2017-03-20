@@ -41,42 +41,31 @@
  */
 #include "bsp.h"
 #include "microhal.h"
+#include "hx711.h"
 
 using namespace microhal;
+using namespace diagnostic;
 using namespace std::literals::chrono_literals;
 
 int main() {
-   // led.set();
-   // led.reset();
-
-   // Core::SetUSART1ClockSource(Core::UsartClockSource::PCLK);
     bsp::debugPort.open(SerialPort::ReadWrite);
     bsp::debugPort.setBaudRate(SerialPort::Baud115200);
     bsp::debugPort.setDataBits(SerialPort::Data8);
     bsp::debugPort.setStopBits(SerialPort::OneStop);
     bsp::debugPort.setParity(SerialPort::NoParity);
 
-    bsp::debugPort.write("\n\rhello\n\r");
+    bsp::debugPort.write("\n\r------------------- Propeller Tester v0.1.0 -------------------------\n\r");
 
-    size_t availableBytes;
-    char buffer[100];
+    diagChannel.setOutputDevice(bsp::debugPort);
 
-    std::this_thread::sleep_for(10s);
+	ExternalInterrupt::init();
+
+	HX711 hx711(bsp::hx711::spi, bsp::hx711::miso);
+	hx711.setChannel(HX711::Channel::A_Gain_64);
 
     while (1) {
-        //        std::this_thread::sleep_for(10ms);
-        //        led.toggle();
-        availableBytes = bsp::debugPort.availableBytes();
-        // if some data available
-        if (availableBytes != 0) {
-            // prevent buffer overflow
-            if (availableBytes > sizeof(buffer)) {
-                availableBytes = sizeof(buffer);
-            }
-            // make echo
-            bsp::debugPort.read(buffer, availableBytes);
-            bsp::debugPort.write(buffer, availableBytes);
-        }
+    	diagChannel << lock << Debug << "HX711: " << hx711.getrawData() << endl <<unlock;
+    	std::this_thread::sleep_for(1s);
     }
     return 0;
 }

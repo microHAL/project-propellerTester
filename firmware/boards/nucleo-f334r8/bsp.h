@@ -105,6 +105,7 @@ constexpr microhal::GPIO::IOPin Sw2(microhal::stm32f3xx::GPIO::Port::PortC, 4);
 
 namespace hx711 {
 static microhal::SPI &spi = microhal::stm32f3xx::SPI::spi1;
+constexpr microhal::GPIO::IOPin miso = con1::a::miso;
 }
 
 static microhal::SerialPort &debugPort = microhal::stm32f3xx::SerialPort::Serial2;
